@@ -88,3 +88,20 @@ func ListDns() (CloudFlareResponse, error) {
 	result, err := makeRequest("GET", "dns_records", "")
 	return result, err
 }
+
+func UpdateZone(zoneId string, domain string, ip string) (CloudFlareResponse, error) {
+	tmpMap := map[string]string{
+		"type":    "A",
+		"name":    domain,
+		"content": ip,
+		"ttl":     "1800",
+	}
+
+	jsonString, err := json.Marshal(tmpMap)
+	if err != nil {
+		return CloudFlareResponse{}, err
+	}
+
+	result, err := makeRequest("PUT", fmt.Sprintf("dns_records/%s", zoneId), string(jsonString))
+	return result, err
+}
