@@ -16,15 +16,17 @@ type CloudFlare struct {
 }
 
 type CloudFlareResponse struct {
-	Result     []map[string]interface{} `json:"result"`
+	Result     interface{}              `json:"result"`
 	ResultInfo map[string]int           `json:"result_info"`
 	Success    bool                     `json:"success"`
 	Errors     []string                 `json:"errors"`
 	Messages   []string                 `json:"messages"`
 }
 
-const C_URL = "https://api.cloudflare.com/client/v4/zones/%s/"
-const C_CRDS_FILE = "cloudflare.json"
+const (
+	C_URL       = "https://api.cloudflare.com/client/v4/zones/%s/"
+	C_CRDS_FILE = "cloudflare.json"
+)
 
 var cloudflare CloudFlare
 
